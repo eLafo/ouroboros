@@ -9,7 +9,7 @@ This document describes all hooks configured for the Ouroboros plugin.
 ## Auto-Sync README Hook
 
 **Event:** PostToolUse
-**Matcher:** `(Edit|Write).*(skills/[^/]+/SKILL\.md|commands/[^/]+\.md|subagents/[^/]+/SUBAGENT\.md|\.claude/)`
+**Matcher:** `(Edit|Write).*(skills/[^/]+/SKILL\.md|commands/[^/]+\.md|agents/[^/]+\.md|hooks/hooks\.json|\.claude/)`
 **Type:** Command
 **Purpose:** Automatically synchronize README.md after artifact files are modified
 
@@ -24,7 +24,8 @@ This document describes all hooks configured for the Ouroboros plugin.
 This hook triggers after successful Edit or Write operations on:
 - Skills: `skills/*/SKILL.md`
 - Commands: `commands/*.md`
-- Subagents: `subagents/*.md`
+- Agents: `agents/*.md`
+- Hooks: `hooks/hooks.json`
 - Claude configuration: Any files in `.claude/` directory
 
 ### Hook Behavior
