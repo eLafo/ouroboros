@@ -13,7 +13,7 @@ This document tracks suggested artifacts to enhance the Ouroboros Plugin's capab
 
 ### 1. Command Builder Command
 
-**Status:** 🔴 Not Started
+**Status:** 🟢 Completed
 **Type:** Command
 **Priority:** HIGH
 **Estimated Effort:** Medium
@@ -45,7 +45,7 @@ Currently have comprehensive support for Skills (skill-builder) but Commands req
 
 ### 2. Subagent Builder Command
 
-**Status:** 🔴 Not Started
+**Status:** 🟢 Completed
 **Type:** Command
 **Priority:** HIGH
 **Estimated Effort:** Medium-High
@@ -79,7 +79,7 @@ Subagents are complex (require understanding delegation, tool access, isolation)
 
 ### 3. Plugin Quality Dashboard Command
 
-**Status:** 🔴 Not Started
+**Status:** 🟢 Completed
 **Type:** Command
 **Priority:** MEDIUM
 **Estimated Effort:** Medium
@@ -111,7 +111,7 @@ While artifact-validator exists for individual artifacts, having a plugin-wide h
 
 ### 4. Hook Builder Command
 
-**Status:** 🔴 Not Started
+**Status:** 🟢 Completed
 **Type:** Command
 **Priority:** MEDIUM
 **Estimated Effort:** Medium-High
@@ -157,10 +157,10 @@ Hooks require security review and are less commonly used than Skills/Commands/Su
 
 | Artifact Type | Creation Support | Validation Support | Advisory Support |
 |--------------|------------------|-------------------|------------------|
-| Skills       | ✅ skill-builder | ✅ artifact-validator | ✅ artifact-advisor |
-| Commands     | ❌ Manual        | ✅ artifact-validator | ✅ artifact-advisor |
-| Subagents    | ❌ Manual        | ✅ artifact-validator | ✅ artifact-advisor |
-| Hooks        | ❌ Manual        | ✅ artifact-validator | ✅ artifact-advisor |
+| Skills       | ✅ skill-builder (Skill)<br>✅ /build-skill (Command) | ✅ artifact-validator | ✅ artifact-advisor |
+| Commands     | ✅ /build-command | ✅ artifact-validator | ✅ artifact-advisor |
+| Subagents    | ✅ /build-subagent | ✅ artifact-validator | ✅ artifact-advisor |
+| Hooks        | ✅ /build-hook    | ✅ artifact-validator | ✅ artifact-advisor |
 
 **Goal:** Achieve ✅ across all Creation Support cells.
 
@@ -177,7 +177,17 @@ Hooks require security review and are less commonly used than Skills/Commands/Su
 
 ## Updates
 
-### 2025-11-06
+### 2025-11-06 (Completion + Bonus)
+- ✅ All four planned artifacts completed!
+- `/build-command` - Command builder with 9-step workflow
+- `/build-subagent` - Subagent builder with 7-step workflow and security focus
+- `/plugin-health-check` - Plugin-wide quality dashboard with validation
+- `/build-hook` - Hook builder with mandatory security review
+- **Bonus:** `/build-skill` - Command version of skill-builder for consistency
+- Full artifact creation coverage achieved with uniform `/build-X` interface
+- Users can now use either automatic activation (Skills) or explicit invocation (Commands)
+
+### 2025-11-06 (Initial)
 - Initial roadmap created
 - Four artifacts identified and prioritized
 - Implementation phases defined
