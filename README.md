@@ -110,6 +110,12 @@ Use these by typing `/command-name`:
 | `/suggest-artifacts` | Analyze workflow and suggest what to build | Starting point - "What should I automate?" |
 | `/plugin-health-check` | Validate all artifacts and generate quality report | Before deployment, after changes |
 
+#### Maintenance Commands
+
+| Command | Purpose | When to Use |
+|---------|---------|-------------|
+| `/sync-readme` | Sync README.md with current project state and artifact inventory | After adding/removing artifacts, before releases |
+
 ---
 
 ### 🎓 Skills (Automatic Activation)
@@ -262,7 +268,8 @@ ouroboros/
 │   ├── build-subagent.md        # Subagent builder command
 │   ├── build-hook.md            # Hook builder command (security-focused)
 │   ├── plugin-health-check.md  # Quality dashboard
-│   └── suggest-artifacts.md    # Workflow analyzer
+│   ├── suggest-artifacts.md    # Workflow analyzer
+│   └── sync-readme.md           # README synchronization
 └── skills/
     ├── artifact-advisor/        # Choose artifact type
     ├── artifact-migrator/       # Migrate/update artifacts (NEW)
