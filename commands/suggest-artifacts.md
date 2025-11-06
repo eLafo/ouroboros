@@ -33,6 +33,27 @@ Analyze the user's development workflow to:
 
 ## Analysis Methodology
 
+### Step 0: Documentation Verification (2-3 min)
+
+**Before analyzing workflows, verify current artifact specifications:**
+
+Use the `claude-researcher` skill to check the latest official documentation:
+
+**Query:** "What are the current specifications and capabilities for Skills, Commands, Subagents, and Hooks from the official Claude Code documentation? Include when to use each artifact type."
+
+**Verify:**
+- Current artifact type definitions and purposes
+- When to use each artifact type (decision framework)
+- Available features and capabilities for each type
+- Recent additions or changes to artifact types
+- Best practices for artifact selection
+
+**Alignment check:** Ensure suggestions will be based on the most current artifact capabilities and patterns from code.claude.com.
+
+If specifications have changed significantly, adjust the suggestion patterns accordingly.
+
+---
+
 ### Step 1: Workflow Discovery
 
 If the user provided a domain argument (e.g., `/suggest-artifacts testing`):

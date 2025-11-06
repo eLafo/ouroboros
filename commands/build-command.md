@@ -63,7 +63,27 @@ When inferring from description, extract key action verbs and convert to kebab-c
 
 ## Command Creation Workflow
 
-Follow this 7-step workflow to create a high-quality Command:
+Follow this workflow with documentation verification:
+
+### Step 0: Documentation Verification (2-3 min)
+
+**Before proceeding, verify current Commands specifications:**
+
+Use the `claude-researcher` skill to check the latest official documentation:
+
+**Query:** "What are the current Commands specifications, frontmatter fields, argument handling, and best practices from the official Claude Code documentation?"
+
+**Verify:**
+- Current frontmatter fields (description, argument-hint, allowed-tools, disable-model-invocation, model)
+- Argument substitution patterns ($ARGUMENTS, $1, $2, ${N:-default})
+- Tool restriction syntax
+- Recent changes or updates to Commands
+
+**Alignment check:** Ensure the workflow below matches the most current official guidance from code.claude.com.
+
+If specifications have changed significantly, adjust the workflow steps accordingly.
+
+---
 
 ### Step 1: Planning (5-10 min)
 

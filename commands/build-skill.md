@@ -54,7 +54,28 @@ Help users create effective Claude Code Skills that:
 
 ## Skill Creation Workflow
 
-Follow this proven 8-step workflow:
+Follow this proven workflow with documentation verification:
+
+### Step 0: Documentation Verification (2-3 min)
+
+**Before proceeding, verify current Skills specifications:**
+
+Use the `claude-researcher` skill to check the latest official documentation:
+
+**Query:** "What are the current Skills specifications, YAML schema, and best practices from the official Claude Code documentation?"
+
+**Verify:**
+- Current YAML frontmatter fields and syntax
+- Description requirements and format
+- Tool restriction patterns
+- Naming conventions
+- Recent changes or updates to Skills
+
+**Alignment check:** Ensure the workflow below matches the most current official guidance from code.claude.com.
+
+If specifications have changed significantly, adjust the workflow steps accordingly.
+
+---
 
 ### Step 1: Planning (5-10 min)
 

@@ -20,6 +20,28 @@ Perform plugin-wide health check by:
 
 ## Methodology
 
+### Step 0: Documentation Verification (2-3 min)
+
+**Before validating artifacts, verify current specifications:**
+
+Use the `claude-researcher` skill to check the latest official documentation:
+
+**Query:** "What are the current validation requirements, quality criteria, and specifications for Skills, Commands, Subagents, and Hooks from the official Claude Code documentation?"
+
+**Verify:**
+- Current YAML schema requirements for each artifact type
+- Required vs optional fields
+- Naming conventions and file structure
+- Validation criteria and best practices
+- Recent specification changes that affect validation
+- Security requirements (especially for Hooks)
+
+**Alignment check:** Ensure validation checks use the most current standards from code.claude.com.
+
+If specifications have changed significantly, update validation criteria accordingly.
+
+---
+
 ### Step 1: Artifact Discovery (2-5 min)
 
 **Scan all artifact locations:**

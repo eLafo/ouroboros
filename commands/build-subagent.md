@@ -52,7 +52,29 @@ Help users create effective Subagents that:
 
 ## Subagent Creation Workflow
 
-Follow this 7-step workflow to create an effective Subagent:
+Follow this workflow with documentation verification:
+
+### Step 0: Documentation Verification (2-3 min)
+
+**Before proceeding, verify current Subagents specifications:**
+
+Use the `claude-researcher` skill to check the latest official documentation:
+
+**Query:** "What are the current Subagents specifications, YAML configuration, tool access patterns, model options, and best practices from the official Claude Code documentation?"
+
+**Verify:**
+- Current YAML fields (name, description, tools, model)
+- Tool restriction patterns and inheritance
+- Model options (sonnet, opus, haiku, inherit)
+- System prompt requirements
+- Delegation patterns
+- Recent changes or updates to Subagents
+
+**Alignment check:** Ensure the workflow below matches the most current official guidance from code.claude.com.
+
+If specifications have changed significantly, adjust the workflow steps accordingly.
+
+---
 
 ### Step 1: Planning (10-15 min)
 

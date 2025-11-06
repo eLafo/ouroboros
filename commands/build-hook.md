@@ -84,7 +84,32 @@ Every Hook MUST pass security review. No exceptions.
 
 ## Hook Creation Workflow
 
-Follow this 9-step workflow with mandatory security review:
+Follow this workflow with documentation verification and mandatory security review:
+
+### Step 0: Documentation Verification (2-3 min)
+
+**Before proceeding, verify current Hooks specifications:**
+
+Use the `claude-researcher` skill to check the latest official documentation:
+
+**Query:** "What are the current Hooks specifications, event types, configuration syntax, security requirements, and best practices from the official Claude Code documentation?"
+
+**Verify:**
+- Available event types (PreToolUse, PostToolUse, UserPromptSubmit, SessionStart, SessionEnd)
+- Hook configuration JSON structure
+- Matcher pattern syntax
+- Command execution requirements
+- Timeout specifications
+- Security best practices and requirements
+- Recent changes or updates to Hooks
+
+**Alignment check:** Ensure the workflow below matches the most current official guidance from code.claude.com.
+
+**⚠️ CRITICAL:** Pay special attention to any security-related specification updates.
+
+If specifications have changed significantly, adjust the workflow steps accordingly.
+
+---
 
 ### Step 1: Planning and Risk Assessment (10-15 min)
 
