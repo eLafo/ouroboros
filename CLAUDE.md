@@ -23,10 +23,10 @@ Five specialized skills and one command work together:
 
 **Commands (explicit invocation):**
 1. **/suggest-artifacts** - Analyzes workflows and suggests what artifacts to build
-2. **/skill** - Manage Skills (create, update, delete, list)
-3. **/command** - Manage Commands (create, update, delete, list)
-4. **/agent** - Manage Subagents (create, update, delete, list)
-5. **/hook** - Manage Hooks (create, update, delete, list)
+2. **/skills** - Manage Skills (create, update, delete, list)
+3. **/commands** - Manage Commands (create, update, delete, list)
+4. **/agents** - Manage Subagents (create, update, delete, list)
+5. **/hooks** - Manage Hooks (create, update, delete, list)
 
 ### Key Pattern: Progressive Disclosure
 
@@ -42,10 +42,10 @@ ouroboros/
 │   └── settings.local.json   # Local permissions
 ├── commands/
 │   ├── suggest-artifacts.md  # Workflow analysis command
-│   ├── skill.md              # CRUD operations for Skills
-│   ├── command.md            # CRUD operations for Commands
-│   ├── agent.md              # CRUD operations for Subagents
-│   ├── hook.md               # CRUD operations for Hooks
+│   ├── skills.md             # CRUD operations for Skills
+│   ├── commands.md           # CRUD operations for Commands
+│   ├── agents.md             # CRUD operations for Subagents
+│   ├── hooks.md              # CRUD operations for Hooks
 │   └── plugin-health-check.md
 └── skills/
     ├── artifact-advisor/
@@ -67,34 +67,34 @@ ouroboros/
 Use the new management commands with CRUD operations:
 
 **Skills:**
-- `/skill create my-skill` - Create new Skill
-- `/skill my-skill` - Smart default: create if not exists, update if exists
-- `/skill update my-skill` - Update existing Skill
-- `/skill delete my-skill` - Delete Skill
-- `/skill list` - List all Skills
+- `/skills create my-skill` - Create new Skill
+- `/skills my-skill` - Smart default: create if not exists, update if exists
+- `/skills update my-skill` - Update existing Skill
+- `/skills delete my-skill` - Delete Skill
+- `/skills list` - List all Skills
 
 **Commands:**
-- `/command create deploy "Deploy to environment"` - Create new Command with description
-- `/command deploy` - Smart default: create if not exists, update if exists
-- `/command update deploy` - Update existing Command
-- `/command delete deploy` - Delete Command
-- `/command list` - List all Commands
+- `/commands create deploy "Deploy to environment"` - Create new Command with description
+- `/commands deploy` - Smart default: create if not exists, update if exists
+- `/commands update deploy` - Update existing Command
+- `/commands delete deploy` - Delete Command
+- `/commands list` - List all Commands
 
 **Subagents:**
-- `/agent create code-reviewer` - Create new Subagent
-- `/agent code-reviewer` - Smart default: create if not exists, update if exists
-- `/agent update code-reviewer` - Update existing Subagent
-- `/agent delete code-reviewer` - Delete Subagent
-- `/agent list` - List all Subagents
+- `/agents create code-reviewer` - Create new Subagent
+- `/agents code-reviewer` - Smart default: create if not exists, update if exists
+- `/agents update code-reviewer` - Update existing Subagent
+- `/agents delete code-reviewer` - Delete Subagent
+- `/agents list` - List all Subagents
 
 **Hooks:**
-- `/hook create pre-commit` - Create new Hook (requires security review)
-- `/hook pre-commit` - Smart default: create if not exists, update if exists
-- `/hook update pre-commit` - Update existing Hook
-- `/hook delete pre-commit` - Delete Hook
-- `/hook list` - List all Hooks
+- `/hooks create pre-commit` - Create new Hook (requires security review)
+- `/hooks pre-commit` - Smart default: create if not exists, update if exists
+- `/hooks update pre-commit` - Update existing Hook
+- `/hooks delete pre-commit` - Delete Hook
+- `/hooks list` - List all Hooks
 
-**Smart Default Behavior:** When you use just the artifact name (e.g., `/skill my-skill`), the command automatically detects if the artifact exists and updates it, or creates it if it doesn't exist.
+**Smart Default Behavior:** When you use just the artifact name (e.g., `/skills my-skill`), the command automatically detects if the artifact exists and updates it, or creates it if it doesn't exist.
 
 ### Skill-Based Assistance
 

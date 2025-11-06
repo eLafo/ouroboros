@@ -14,17 +14,17 @@ Manage Claude Code Hooks with CRUD operations.
 
 ```bash
 # Show usage
-/hook
-/hook help
+/hooks
+/hooks help
 
 # Smart default: create if not exists, update if exists
-/hook pre-commit-lint
+/hooks pre-commit-lint
 
 # Explicit operations
-/hook create pre-commit-lint
-/hook update pre-commit-lint
-/hook delete pre-commit-lint
-/hook list
+/hooks create pre-commit-lint
+/hooks update pre-commit-lint
+/hooks delete pre-commit-lint
+/hooks list
 ```
 
 ## Important: Hook Storage
@@ -47,7 +47,7 @@ HOOK_NAME="$2"
 # Parse operation
 case "$OPERATION" in
   ""|help)
-    echo "Usage: /hook <operation|name> [args...]"
+    echo "Usage: /hooks <operation|name> [args...]"
     echo ""
     echo "Operations:"
     echo "  create <name>   - Create new Hook (guide through configuration)"
@@ -56,7 +56,7 @@ case "$OPERATION" in
     echo "  list            - List all configured Hooks"
     echo ""
     echo "Smart default:"
-    echo "  /hook <name>    - Create if not exists, update if exists"
+    echo "  /hooks <name>   - Create if not exists, update if exists"
     echo ""
     echo "⚠️  Security: All Hooks require mandatory security review"
     exit 0

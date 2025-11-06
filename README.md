@@ -72,7 +72,7 @@ This plugin provides **expert guidance** for:
 
 ```bash
 # Explicit invocation
-/build-skill pdf-processor
+/skills create pdf-processor
 
 # Or just ask naturally, and skill-builder activates automatically:
 "I want to create a Skill for processing PDF files"
@@ -97,14 +97,14 @@ Claude will guide you through:
 
 Use these by typing `/command-name`:
 
-#### Builder Commands
+#### Management Commands
 
 | Command | Purpose | When to Use |
 |---------|---------|-------------|
-| `/build-skill` | Create a new Skill | Build automatic AI capabilities |
-| `/build-command` | Create a new Command | Build user-triggered workflows |
-| `/build-subagent` | Create a new Subagent | Build specialized AI assistants |
-| `/build-hook` | Create a new Hook | Build event-driven automation (⚠️ requires security review) |
+| `/skills` | Manage Skills (create, update, delete, list) | Build automatic AI capabilities |
+| `/commands` | Manage Commands (create, update, delete, list) | Build user-triggered workflows |
+| `/agents` | Manage Subagents (create, update, delete, list) | Build specialized AI assistants |
+| `/hooks` | Manage Hooks (create, update, delete, list) | Build event-driven automation (⚠️ requires security review) |
 
 #### Analysis Commands
 
@@ -182,15 +182,15 @@ Would you like help creating #1?
 
 ### Creating Artifacts
 
-#### Option 1: Use Builder Commands (Explicit)
+#### Option 1: Use Management Commands (Explicit)
 
-**Consistent `/build-X` interface:**
+**Consistent CRUD interface:**
 
 ```bash
-/build-skill pdf-processor
-/build-command deploy
-/build-subagent code-reviewer
-/build-hook pre-commit-validator
+/skills create pdf-processor
+/commands create deploy
+/agents create code-reviewer
+/hooks create pre-commit-validator
 ```
 
 #### Option 2: Ask Naturally (Automatic)
@@ -237,7 +237,7 @@ Just describe what you want, and the appropriate builder Skill activates:
 
 3. **Create the Hook:**
    ```bash
-   /build-hook pre-commit-linter
+   /hooks create pre-commit-linter
    ```
    *Guides through 9-step workflow with security review*
 
@@ -392,7 +392,7 @@ Run `/plugin-health-check` to see quality scores across all your artifacts.
 ### Example 1: Building a PDF Processor Skill
 
 ```bash
-/build-skill pdf-processor
+/skills create pdf-processor
 ```
 
 **Claude guides you through:**
@@ -438,7 +438,7 @@ Run `/plugin-health-check` to see quality scores across all your artifacts.
 ### Example 2: Deployment Command
 
 ```bash
-/build-command deploy
+/commands create deploy
 ```
 
 **Creates:**
@@ -485,7 +485,7 @@ npm run verify:$1
 ### Example 3: Security Hook (with mandatory security review)
 
 ```bash
-/build-hook pre-commit-linter
+/hooks create pre-commit-linter
 ```
 
 **Claude emphasizes security** (10+ warnings):
@@ -817,14 +817,14 @@ See [ARTIFACT-ROADMAP.md](ARTIFACT-ROADMAP.md) for planned enhancements.
 **A:** Both work identically! Choose based on preference:
 - **Skill** (e.g., `skill-builder`): Activates automatically when you naturally describe wanting to create something
   - Example: "Help me create a command" → `command-builder` activates
-- **Command** (e.g., `/build-command`): Explicit control, direct invocation
-  - Example: `/build-command deploy`
+- **Command** (e.g., `/commands`): Explicit control, CRUD operations
+  - Example: `/commands create deploy`
 
 **All four artifact types have both:**
 - Skills: `skill-builder`, `command-builder`, `subagent-builder`, `hook-builder`
-- Commands: `/build-skill`, `/build-command`, `/build-subagent`, `/build-hook`
+- Commands: `/skills`, `/commands`, `/agents`, `/hooks`
 
-Command versions provide predictable invocation, while Skills activate contextually.
+Command versions provide predictable invocation and management, while Skills activate contextually.
 
 ### Q: How do I know which artifact type to use?
 
@@ -835,7 +835,7 @@ Command versions provide predictable invocation, while Skills activate contextua
 
 ### Q: Are Hooks safe?
 
-**A:** Hooks execute arbitrary commands and require careful security review. The `/build-hook` command includes **mandatory security checklists** and emphasizes safe patterns. Never skip the security review!
+**A:** Hooks execute arbitrary commands and require careful security review. The `/hooks` command includes **mandatory security checklists** and emphasizes safe patterns. Never skip the security review!
 
 ### Q: Can I use this plugin to manage other plugins?
 

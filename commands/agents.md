@@ -12,17 +12,17 @@ Manage Claude Code Subagents with CRUD operations.
 
 ```bash
 # Show usage
-/agent
-/agent help
+/agents
+/agents help
 
 # Smart default: create if not exists, update if exists
-/agent code-reviewer
+/agents code-reviewer
 
 # Explicit operations
-/agent create code-reviewer
-/agent update code-reviewer
-/agent delete code-reviewer
-/agent list
+/agents create code-reviewer
+/agents update code-reviewer
+/agents delete code-reviewer
+/agents list
 ```
 
 ## Operation Routing
@@ -36,7 +36,7 @@ ARTIFACT_NAME="$2"
 # Parse operation
 case "$OPERATION" in
   ""|help)
-    echo "Usage: /agent <operation|name> [args...]"
+    echo "Usage: /agents <operation|name> [args...]"
     echo ""
     echo "Operations:"
     echo "  create <name>   - Create new Subagent"
@@ -45,7 +45,7 @@ case "$OPERATION" in
     echo "  list            - List all Subagents"
     echo ""
     echo "Smart default:"
-    echo "  /agent <name>  - Create if not exists, update if exists"
+    echo "  /agents <name>  - Create if not exists, update if exists"
     exit 0
     ;;
   create)

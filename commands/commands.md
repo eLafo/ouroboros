@@ -12,22 +12,22 @@ Manage Claude Code Commands with CRUD operations.
 
 ```bash
 # Show usage
-/command
-/command help
+/commands
+/commands help
 
 # Smart default: create if not exists, update if exists
-/command my-command-name
+/commands my-command-name
 
 # With description (for create)
-/command my-command "Deploy to environment"
-/command "Deploy to environment"  # Infers name from description
+/commands my-command "Deploy to environment"
+/commands "Deploy to environment"  # Infers name from description
 
 # Explicit operations
-/command create my-command
-/command create my-command "Deploy to environment"
-/command update my-command
-/command delete my-command
-/command list
+/commands create my-command
+/commands create my-command "Deploy to environment"
+/commands update my-command
+/commands delete my-command
+/commands list
 ```
 
 ## Operation Routing
@@ -42,7 +42,7 @@ DESCRIPTION="$3"
 # Parse operation
 case "$OPERATION" in
   ""|help)
-    echo "Usage: /command <operation|name> [args...]"
+    echo "Usage: /commands <operation|name> [args...]"
     echo ""
     echo "Operations:"
     echo "  create <name> [description]  - Create new Command"
@@ -51,9 +51,9 @@ case "$OPERATION" in
     echo "  list                         - List all Commands"
     echo ""
     echo "Smart default:"
-    echo "  /command <name>              - Create if not exists, update if exists"
-    echo "  /command <name> <desc>       - Create with description"
-    echo "  /command \"<desc>\"            - Create, infer name from description"
+    echo "  /commands <name>             - Create if not exists, update if exists"
+    echo "  /commands <name> <desc>      - Create with description"
+    echo "  /commands \"<desc>\"           - Create, infer name from description"
     exit 0
     ;;
   create)

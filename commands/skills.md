@@ -12,17 +12,17 @@ Manage Claude Code Skills with CRUD operations.
 
 ```bash
 # Show usage
-/skill
-/skill help
+/skills
+/skills help
 
 # Smart default: create if not exists, update if exists
-/skill my-skill-name
+/skills my-skill-name
 
 # Explicit operations
-/skill create my-skill-name
-/skill update my-skill-name
-/skill delete my-skill-name
-/skill list
+/skills create my-skill-name
+/skills update my-skill-name
+/skills delete my-skill-name
+/skills list
 ```
 
 ## Operation Routing
@@ -36,7 +36,7 @@ ARTIFACT_NAME="$2"
 # Parse operation
 case "$OPERATION" in
   ""|help)
-    echo "Usage: /skill <operation|name> [args...]"
+    echo "Usage: /skills <operation|name> [args...]"
     echo ""
     echo "Operations:"
     echo "  create <name>   - Create new Skill"
@@ -45,7 +45,7 @@ case "$OPERATION" in
     echo "  list            - List all Skills"
     echo ""
     echo "Smart default:"
-    echo "  /skill <name>   - Create if not exists, update if exists"
+    echo "  /skills <name>  - Create if not exists, update if exists"
     exit 0
     ;;
   create)
