@@ -1,7 +1,7 @@
 ---
 name: claude-expert
-description: Comprehensive reference knowledge for Claude Code artifacts including complete specifications for Skills, Commands, Subagents, and Hooks with YAML schemas, field definitions, and configuration details. Contains creation workflows, decision frameworks, comparison matrices, validation procedures, and common mistakes patterns. Use when needing detailed specifications, technical reference, YAML schema information, workflow steps, or comprehensive artifact knowledge.
-allowed-tools: Read
+description: Essential reference for ALL Claude Code artifact work (Skills, Commands, Subagents, Hooks, Plugins). Automatically activates when creating, updating, validating, or discussing any Claude Code artifact. Provides complete specifications, YAML schemas, field definitions, creation workflows, decision frameworks, comparison matrices, validation rules, common mistakes, and best practices. Always consult for artifact specifications, technical requirements, workflow guidance, quality standards, or troubleshooting. Works alongside claude-researcher skill for documentation verification.
+allowed-tools: Read, Skill
 ---
 
 # Claude Code Expert: Technical Reference
@@ -10,15 +10,25 @@ Complete technical reference for all Claude Code artifacts (Skills, Commands, Su
 
 ## Purpose
 
-This Skill serves as the **knowledge repository** for the Centauro plugin. It contains all the detailed technical information that other Skills reference when guiding users through artifact creation and management.
+This Skill serves as the **knowledge repository** for the Ouroboros plugin. It contains all the detailed technical information that other Skills reference when guiding users through artifact creation and management.
 
-**When to use this Skill:**
-- Need detailed specifications for any artifact type
-- Want to understand YAML schema and field definitions
-- Looking for complete workflow steps
-- Need decision frameworks for choosing artifact types
-- Want to know common mistakes and anti-patterns
-- Require technical reference during artifact creation
+**This Skill automatically activates when:**
+- Creating any Claude Code artifact (Skill, Command, Subagent, Hook, Plugin)
+- Updating or modifying existing artifacts
+- Validating artifact quality or structure
+- Discussing artifact specifications or requirements
+- Troubleshooting artifact issues
+- Choosing between artifact types
+- Needing YAML schema or field definitions
+- Asking about workflows or best practices
+- Reviewing common mistakes or anti-patterns
+
+**Integration with claude-researcher:**
+This Skill works alongside the `claude-researcher` skill for documentation verification:
+- **claude-expert** provides curated specifications, workflows, and best practices
+- **claude-researcher** fetches and verifies official documentation from code.claude.com
+- Use claude-researcher via: `Skill` tool to verify latest specifications
+- Together they ensure both comprehensive knowledge and current accuracy
 
 ## Knowledge Areas
 
@@ -73,33 +83,55 @@ This Skill uses **progressive disclosure** - Claude reads the knowledge files on
 
 ### Multi-Skill Activation
 
-Claude can activate **multiple Skills simultaneously**:
+Claude can activate **multiple Skills simultaneously**. The claude-expert skill is designed to work alongside other skills:
 
-**Example 1:**
+**Example 1: Creation with claude-expert**
 ```
 User: "I want to create a Skill for PDF processing"
 
 Skills activated:
-- skill-builder (guides creation workflow)
 - claude-expert (provides specifications and best practices)
+- skill-builder (guides creation workflow)
 ```
 
-**Example 2:**
+**Example 2: Decision-making with claude-expert**
 ```
 User: "Should I use a Skill or Command for deployment?"
 
 Skills activated:
-- artifact-advisor (guides decision)
 - claude-expert (provides comparison framework)
+- artifact-advisor (guides decision)
 ```
 
-**Example 3:**
+**Example 3: Validation with claude-expert**
 ```
 User: "Validate this Skill and fix any issues"
 
 Skills activated:
-- artifact-validator (runs validation)
 - claude-expert (provides specifications to validate against)
+- artifact-validator (runs validation)
+```
+
+**Example 4: Documentation verification with claude-researcher**
+```
+User: "Create a new Command and verify it follows latest specs"
+
+Skills activated:
+- claude-expert (provides specifications and workflows)
+- claude-researcher (fetches latest official documentation)
+- command-builder (guides creation)
+```
+
+### Invoking claude-researcher
+
+When current official documentation is needed, invoke claude-researcher:
+
+```
+Use the Skill tool to activate claude-researcher:
+Skill(skill: "ouroboros:claude-researcher")
+
+Then the researcher will fetch official docs from code.claude.com
+and provide authoritative, current information.
 ```
 
 ## Knowledge Organization
@@ -219,15 +251,22 @@ Current knowledge version: **1.0.0**
 
 ## Related Skills
 
+**Documentation Skills:**
+- **claude-researcher:** Fetches official Claude Code documentation from code.claude.com
+  - Use when needing to verify current specifications
+  - Use when official docs needed for latest features
+  - Complements claude-expert's curated knowledge
+
 **Workflow Skills (use claude-expert for knowledge):**
 - **artifact-advisor:** Recommends which artifact type to use
 - **skill-builder:** Guides Skill creation
+- **command-builder:** Guides Command creation
+- **subagent-builder:** Guides Subagent creation
+- **hook-builder:** Guides Hook creation with security review
 - **artifact-validator:** Validates artifact quality
-- **command-builder:** Guides Command creation (future)
-- **subagent-builder:** Guides Subagent creation (future)
-- **hook-security-reviewer:** Reviews Hook security (future)
 
 **Troubleshooting Skills (use claude-expert for diagnosis):**
+- **artifact-migrator:** Updates artifacts to new specifications
 - **artifact-troubleshooter:** Diagnoses artifact issues (future)
 
 ## Quick Reference
@@ -282,4 +321,30 @@ Navigate to detailed knowledge:
 
 ---
 
-**This Skill serves as the foundation knowledge for all artifact creation and management in the Centauro plugin.**
+## Best Practices for Using This Skill
+
+### Always Active for Artifact Work
+This skill should **automatically activate** whenever working with Claude Code artifacts. The enhanced description ensures it activates for:
+- Any mention of Skills, Commands, Subagents, Hooks, or Plugins
+- Creating, updating, or validating artifacts
+- Questions about specifications or requirements
+- Troubleshooting artifact issues
+
+### Combining with claude-researcher
+For the most accurate and current information:
+1. **Start with claude-expert** for curated knowledge and workflows
+2. **Verify with claude-researcher** when latest specifications needed
+3. **Cross-reference** both sources for complete understanding
+
+### Working with Other Skills
+claude-expert is designed to be a **supporting skill** that provides knowledge to:
+- artifact-advisor (for decision frameworks)
+- skill-builder, command-builder, subagent-builder, hook-builder (for workflows)
+- artifact-validator (for validation rules)
+- artifact-migrator (for specification updates)
+
+It should activate automatically alongside these skills without explicit invocation.
+
+---
+
+**This Skill serves as the foundation knowledge for all artifact creation and management in the Ouroboros plugin.**
