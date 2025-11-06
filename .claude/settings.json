@@ -1,16 +1,2 @@
 {
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "(Edit|Write).*(skills/[^/]+/SKILL\\.md|commands/[^/]+\\.md|agents/[^/]+\\.md|hooks/hooks\\.json|\\.claude/)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo '🔄 Artifact modified, syncing README...' && claude -p '/sync-readme' || { echo '⚠️ README sync failed (non-blocking)' >&2; exit 0; }",
-            "timeout": 180
-          }
-        ]
-      }
-    ]
-  }
 }

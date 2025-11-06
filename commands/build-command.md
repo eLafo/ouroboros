@@ -1,6 +1,6 @@
 ---
 description: Guide creation of Claude Code Commands with step-by-step workflows, argument handling, frontmatter configuration, and testing. Ensures Commands follow best practices and correct YAML structure.
-argument-hint: [command-name]
+argument-hint: [command-name] [description]
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
@@ -19,15 +19,47 @@ Help users create effective Claude Code slash commands that:
 
 ## Usage
 
-**With command name:**
+**With description only (infer name):**
+```bash
+/build-command "Deploy application to specified environment"
+```
+
+**With command name only:**
 ```bash
 /build-command deploy
+```
+
+**With both name and description:**
+```bash
+/build-command deploy "Deploy application to specified environment"
 ```
 
 **General command creation:**
 ```bash
 /build-command
 ```
+
+## Arguments Handling
+
+**Argument detection logic:**
+
+1. **If $1 contains spaces or starts with uppercase** → Treat $1 as description, infer command name from it
+2. **If $1 is lowercase/kebab-case AND $2 is provided** → $1 is name, $2 is description
+3. **If only $1 is provided and looks like a name** (lowercase, no spaces, short) → $1 is command name, ask for description
+4. **If no arguments** → Interactive mode, ask all questions
+
+**Command name inference:**
+When inferring from description, extract key action verbs and convert to kebab-case:
+- "Deploy application to environments" → `deploy`
+- "Review pull request for quality" → `review-pr`
+- "Run tests and generate coverage" → `run-tests`
+- "Analyze log files for errors" → `analyze-logs`
+
+**Example invocations:**
+- `/build-command` → Interactive mode
+- `/build-command deploy` → Name: "deploy", ask for description
+- `/build-command "Deploy to staging"` → Infer name: "deploy", description provided
+- `/build-command deploy "Deploy to staging"` → Name: "deploy", description provided
 
 ## Command Creation Workflow
 
@@ -37,7 +69,15 @@ Follow this 7-step workflow to create a high-quality Command:
 
 **Gather requirements:**
 
-Ask the user:
+**First, determine what was provided:**
+- If $1 contains spaces or starts uppercase → It's a description (infer command name in Step 2)
+- If $1 is kebab-case AND $2 exists → $1 is name, $2 is description
+- If only $1 and it's kebab-case → $1 is name, need description
+- If no arguments → Need both name and description
+
+**If description was provided (either as $1 or $2):** Use it as the command's purpose and primary task. You may still need to ask clarifying questions, but the core purpose is established.
+
+**If no description provided, ask the user:**
 
 1. **What task will this Command perform?**
    Examples: Deploy application, review PR, run tests, analyze logs
@@ -68,6 +108,21 @@ Ask the user:
 ### Step 2: Command Naming (2 min)
 
 **Create a clear, memorable command name:**
+
+**Case 1: Command name explicitly provided ($1 is kebab-case)**
+- Validate it follows the naming rules below
+- If valid, use "$1" as the command name and proceed to Step 3
+
+**Case 2: Description provided as $1 (contains spaces or uppercase)**
+- Infer command name from the description using these patterns:
+  - Extract primary action verb (deploy, review, run, analyze, etc.)
+  - Add secondary noun if needed (deploy → deploy-app, review → review-pr)
+  - Convert to kebab-case
+- Show inferred name to user for confirmation
+- If user disagrees, ask for preferred name
+
+**Case 3: No command name provided**
+Create one following these rules:
 
 **Naming rules:**
 - Lowercase only
