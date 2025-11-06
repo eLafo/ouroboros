@@ -266,12 +266,12 @@ ouroboros/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin metadata
 ├── commands/
-│   ├── build-skill.md           # Skill builder command
-│   ├── build-command.md         # Command builder command
-│   ├── build-subagent.md        # Subagent builder command
-│   ├── build-hook.md            # Hook builder command (security-focused)
-│   ├── plugin-health-check.md  # Quality dashboard
 │   ├── suggest-artifacts.md    # Workflow analyzer
+│   ├── skill.md                 # CRUD operations for Skills
+│   ├── command.md               # CRUD operations for Commands
+│   ├── agent.md                 # CRUD operations for Subagents
+│   ├── hook.md                  # CRUD operations for Hooks
+│   ├── plugin-health-check.md  # Quality dashboard
 │   └── sync-readme.md           # README synchronization
 └── skills/
     ├── artifact-advisor/        # Choose artifact type
