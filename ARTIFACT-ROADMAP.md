@@ -141,28 +141,180 @@ Hooks require security review and are less commonly used than Skills/Commands/Su
 
 ---
 
+## Priority 3: SUBAGENTS
+
+### 5. Artifact Deep Analyzer Subagent
+
+**Status:** 🟢 Completed
+**Type:** Subagent
+**Priority:** HIGH
+**Estimated Effort:** Medium
+
+**What it does:**
+Performs comprehensive, isolated analysis of artifact files with detailed quality assessment, cross-reference validation, and improvement recommendations without cluttering the main conversation.
+
+**Example usage:**
+```
+User: "Analyze the artifact-validator skill for quality issues"
+→ Subagent reads all files, checks consistency, validates structure
+→ Returns focused report with specific line references
+```
+
+**Benefits:**
+- Isolation: Complex file analysis doesn't pollute main context
+- Deep reasoning: Can spend more tokens analyzing without impacting conversation
+- Focused output: Returns clean report instead of verbose exploration
+- Tool efficiency: Limited to Read, Grep, Glob - no accidental edits
+
+**Why HIGH impact:**
+The plugin's core mission is artifact quality. While artifact-validator provides quick checks, deep analysis needs isolation. Complements /plugin-health-check by providing detailed per-artifact deep dives.
+
+**Implementation Notes:**
+- Tool access: Read, Grep, Glob (read-only analysis)
+- Return synthesized report with line references
+- Check against all specifications in claude-expert
+- Identify improvement opportunities
+
+---
+
+### 6. Documentation Synthesizer Subagent
+
+**Status:** 🟢 Completed
+**Type:** Subagent
+**Priority:** HIGH
+**Estimated Effort:** Medium
+
+**What it does:**
+Fetches, analyzes, and synthesizes multiple Claude Code documentation pages to answer complex questions requiring cross-referencing official docs.
+
+**Example usage:**
+```
+User: "What are all the ways Hooks can access file system events?"
+→ Subagent fetches relevant docs from code.claude.com
+→ Cross-references Hook specs, event types, security guidelines
+→ Returns comprehensive answer with citations
+```
+
+**Benefits:**
+- Isolation: WebFetch and analysis don't clutter main conversation
+- Thorough research: Can fetch 5-10 doc pages without overwhelming user
+- Synthesized output: Returns answer, not raw documentation
+- Reliable citations: Includes source URLs for all claims
+
+**Why HIGH impact:**
+claude-researcher Skill provides basic doc lookup, but complex queries need synthesis. Users often ask multi-faceted questions requiring cross-referencing multiple documentation pages.
+
+**Implementation Notes:**
+- Tool access: WebFetch, Read (for caching docs)
+- Cross-reference multiple documentation pages
+- Return synthesized answers with citations
+- Complement claude-researcher for complex queries
+
+---
+
+### 7. Artifact Migration Assistant Subagent
+
+**Status:** 🟢 Completed
+**Type:** Subagent
+**Priority:** MEDIUM
+**Estimated Effort:** Medium-High
+
+**What it does:**
+Analyzes existing user-created artifacts and suggests/applies migrations when Claude Code specifications change or best practices evolve.
+
+**Example usage:**
+```
+User: "Check if my old Skills need updating for new Claude Code standards"
+→ Subagent reads user's Skills
+→ Compares against current specs from claude-expert
+→ Generates migration checklist with specific changes
+```
+
+**Benefits:**
+- Future-proof: Helps users keep artifacts up-to-date as Claude Code evolves
+- Non-destructive: Can analyze and suggest without editing
+- Batch analysis: Can process multiple artifacts in isolation
+- Educational: Explains why changes are needed
+
+**Why MEDIUM impact:**
+Useful but less frequent than analysis or research. Most valuable during Claude Code version updates. Good for plugin maintenance, but not daily workflow.
+
+**Implementation Notes:**
+- Tool access: Read, Grep, Glob, Edit (with user confirmation)
+- Compare against current specifications
+- Generate migration checklists
+- Apply changes with explicit user approval
+
+---
+
+### 8. Cross-Artifact Dependency Mapper Subagent
+
+**Status:** 🟢 Completed
+**Type:** Subagent
+**Priority:** MEDIUM
+**Estimated Effort:** Medium
+
+**What it does:**
+Analyzes all artifacts in a plugin to identify dependencies, overlaps, and optimization opportunities.
+
+**Example usage:**
+```
+User: "Are any of my Skills overlapping in functionality?"
+→ Subagent reads all Skills, Commands, Subagents
+→ Maps trigger patterns, functionality overlap
+→ Suggests consolidation or specialization opportunities
+```
+
+**Benefits:**
+- Plugin health: Identifies redundancy and gaps
+- Isolated analysis: Complex graph building doesn't clutter context
+- Actionable insights: Suggests specific refactoring opportunities
+- Scale-friendly: Works for plugins with 10+ artifacts
+
+**Why MEDIUM impact:**
+Most valuable for mature plugins with many artifacts. Less useful for small plugins. Complements /plugin-health-check with relationship analysis.
+
+**Implementation Notes:**
+- Tool access: Read, Grep, Glob
+- Map trigger patterns across Skills
+- Identify functional overlaps
+- Suggest consolidation or specialization
+
+---
+
 ## Implementation Recommendation
 
-**Phase 1: Core Creation Tools**
-1. Command Builder Command (closes the most obvious gap)
-2. Subagent Builder Command (completes the triad)
+**Phase 1: Core Creation Tools** ✅ COMPLETED
+1. Command Builder Command
+2. Subagent Builder Command
+3. Hook Builder Command
+4. Skill Builder Command (bonus)
 
-**Phase 2: Quality & Completeness**
-3. Plugin Quality Dashboard Command (overall health)
-4. Hook Builder Command (full coverage)
+**Phase 2: Quality & Completeness** ✅ COMPLETED
+5. Plugin Quality Dashboard Command
+
+**Phase 3: Deep Analysis (Subagents)**
+6. Artifact Deep Analyzer Subagent (HIGH - start here)
+7. Documentation Synthesizer Subagent (HIGH - enhances research)
+
+**Phase 4: Advanced Features (Subagents)**
+8. Artifact Migration Assistant Subagent (MEDIUM - future-proofing)
+9. Cross-Artifact Dependency Mapper Subagent (MEDIUM - optimization)
 
 ---
 
 ## Current Plugin Coverage
 
-| Artifact Type | Creation Support | Validation Support | Advisory Support |
-|--------------|------------------|-------------------|------------------|
-| Skills       | ✅ skill-builder (Skill)<br>✅ /build-skill (Command) | ✅ artifact-validator | ✅ artifact-advisor |
-| Commands     | ✅ /build-command | ✅ artifact-validator | ✅ artifact-advisor |
-| Subagents    | ✅ /build-subagent | ✅ artifact-validator | ✅ artifact-advisor |
-| Hooks        | ✅ /build-hook    | ✅ artifact-validator | ✅ artifact-advisor |
+| Artifact Type | Creation Support | Validation Support | Advisory Support | Active Subagents |
+|--------------|------------------|-------------------|------------------|------------------|
+| Skills       | ✅ skill-builder (Skill)<br>✅ /build-skill (Command) | ✅ artifact-validator | ✅ artifact-advisor | N/A |
+| Commands     | ✅ /build-command | ✅ artifact-validator | ✅ artifact-advisor | N/A |
+| Subagents    | ✅ /build-subagent | ✅ artifact-validator | ✅ artifact-advisor | 🟢 4/4 active |
+| Hooks        | ✅ /build-hook    | ✅ artifact-validator | ✅ artifact-advisor | N/A |
 
-**Goal:** Achieve ✅ across all Creation Support cells.
+**Goals:**
+- ✅ Creation support complete across all artifact types
+- 🎯 Next: Build Subagents to enhance deep analysis and research workflows
 
 ---
 
@@ -177,8 +329,28 @@ Hooks require security review and are less commonly used than Skills/Commands/Su
 
 ## Updates
 
+### 2025-11-06 (Phase 3 Complete - All Subagents Built!)
+- 🎉 All 4 subagents from Phase 3 completed!
+- ✅ **artifact-deep-analyzer** - Comprehensive isolated artifact analysis
+- ✅ **documentation-synthesizer** - Multi-doc research and synthesis
+- ✅ **artifact-migration-assistant** - Version migration and updates
+- ✅ **cross-artifact-dependency-mapper** - Plugin architecture analysis
+- Full plugin capabilities now include creation, validation, research, AND deep analysis
+- Subagents provide context isolation for complex reasoning tasks
+- Pattern: Skills (quick) → Subagents (deep/isolated) for optimal workflow
+
+### 2025-11-06 (Subagent Roadmap)
+- 🎯 Added Phase 3 & 4: Subagent recommendations
+- Identified 4 subagents to enhance plugin capabilities:
+  - **Artifact Deep Analyzer** (HIGH) - Isolated deep analysis
+  - **Documentation Synthesizer** (HIGH) - Multi-doc research synthesis
+  - **Artifact Migration Assistant** (MEDIUM) - Future-proofing
+  - **Cross-Artifact Dependency Mapper** (MEDIUM) - Optimization
+- Subagents complement existing Skills/Commands with isolated, complex reasoning
+- Pattern established: Skills (auto) → Commands (explicit) → Subagents (deep/isolated)
+
 ### 2025-11-06 (Completion + Bonus)
-- ✅ All four planned artifacts completed!
+- ✅ All Phase 1 & 2 artifacts completed!
 - `/build-command` - Command builder with 9-step workflow
 - `/build-subagent` - Subagent builder with 7-step workflow and security focus
 - `/plugin-health-check` - Plugin-wide quality dashboard with validation
