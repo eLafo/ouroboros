@@ -116,12 +116,21 @@ Use these by typing `/command-name`:
 
 These activate automatically when Claude detects you need them:
 
-#### Creation & Validation
+#### Builder Skills
 
 | Skill | Activates When | Purpose |
 |-------|----------------|---------|
-| **skill-builder** | You mention creating/building Skills | Guides Skill creation (alternative to `/build-skill`) |
-| **artifact-validator** | You ask to validate/check artifact quality | Validates and grades artifacts |
+| **skill-builder** | You mention creating/building Skills | Guides Skill creation with activation testing |
+| **command-builder** | You mention creating/building Commands | Guides Command creation with argument handling |
+| **subagent-builder** | You mention creating/building Subagents | Guides Subagent creation with task delegation |
+| **hook-builder** | You mention creating/building Hooks | Guides Hook creation with **mandatory security review** |
+
+#### Validation & Migration
+
+| Skill | Activates When | Purpose |
+|-------|----------------|---------|
+| **artifact-validator** | You ask to validate/check artifact quality | Validates and grades artifacts (A-F scoring) |
+| **artifact-migrator** | You mention updating/fixing broken artifacts | Helps migrate artifacts to new specifications |
 | **artifact-advisor** | You're unsure which artifact type to use | Helps choose between Skills/Commands/Subagents/Hooks |
 
 #### Knowledge & Research
@@ -177,17 +186,26 @@ Would you like help creating #1?
 
 #### Option 2: Ask Naturally (Automatic)
 
-Just describe what you want, and the appropriate Skill activates:
+Just describe what you want, and the appropriate builder Skill activates:
 
 ```
 "I want to create a Skill for analyzing SQL queries"
 → skill-builder activates
 
+"Help me create a command for deploying"
+→ command-builder activates
+
+"I need a subagent for code analysis"
+→ subagent-builder activates
+
+"Create a pre-commit hook for testing"
+→ hook-builder activates (with security review)
+
 "Which artifact type should I use for deployment?"
 → artifact-advisor activates
 
-"Validate my pdf-processor Skill"
-→ artifact-validator activates
+"My skill stopped activating"
+→ artifact-migrator activates
 ```
 
 ---
@@ -237,24 +255,28 @@ The plugin uses **progressive disclosure** - information is loaded only when nee
 ```
 ouroboros/
 ├── .claude-plugin/
-│   └── plugin.json           # Plugin metadata
+│   └── plugin.json              # Plugin metadata
 ├── commands/
-│   ├── build-skill.md        # Skill builder command
-│   ├── build-command.md      # Command builder command
-│   ├── build-subagent.md     # Subagent builder command
-│   ├── build-hook.md         # Hook builder command (security-focused)
-│   ├── plugin-health-check.md # Quality dashboard
-│   └── suggest-artifacts.md   # Workflow analyzer
+│   ├── build-skill.md           # Skill builder command
+│   ├── build-command.md         # Command builder command
+│   ├── build-subagent.md        # Subagent builder command
+│   ├── build-hook.md            # Hook builder command (security-focused)
+│   ├── plugin-health-check.md  # Quality dashboard
+│   └── suggest-artifacts.md    # Workflow analyzer
 └── skills/
-    ├── artifact-advisor/     # Choose artifact type
-    ├── artifact-validator/   # Validate quality
-    ├── claude-expert/        # Specifications & knowledge
+    ├── artifact-advisor/        # Choose artifact type
+    ├── artifact-migrator/       # Migrate/update artifacts (NEW)
+    ├── artifact-validator/      # Validate quality
+    ├── claude-expert/           # Specifications & knowledge
     │   ├── SKILL.md
     │   ├── specifications.md
     │   ├── comparison-matrix.md
     │   └── common-mistakes.md
-    ├── claude-researcher/    # Fetch official docs
-    └── skill-builder/        # Guide Skill creation
+    ├── claude-researcher/       # Fetch official docs
+    ├── command-builder/         # Guide Command creation (NEW)
+    ├── hook-builder/            # Guide Hook creation with security (NEW)
+    ├── skill-builder/           # Guide Skill creation
+    └── subagent-builder/        # Guide Subagent creation (NEW)
 ```
 
 ### How It Works
@@ -274,6 +296,13 @@ Activates:
 
 Result: Comprehensive guidance with specs
 ```
+
+**Complete Builder Suite:**
+All four artifact types now have automatic builder activation:
+- **skill-builder** → Creates Skills with activation testing
+- **command-builder** → Creates Commands with argument handling
+- **subagent-builder** → Creates Subagents with task delegation
+- **hook-builder** → Creates Hooks with mandatory security review
 
 ---
 
@@ -616,10 +645,11 @@ Recommendations: 5
 **Cause:** Description doesn't contain keywords users actually mention
 
 **Fix:**
-1. Add more specific trigger keywords to description
-2. Test with explicit technology mentions
-3. Restart Claude session
-4. Use `/build-skill` or `skill-builder` to regenerate with better description
+1. Use `artifact-migrator` Skill: "My skill stopped activating"
+2. Add more specific trigger keywords to description
+3. Test with explicit technology mentions
+4. Restart Claude session
+5. Or regenerate with `skill-builder`
 
 **Example:**
 ```yaml
@@ -734,8 +764,13 @@ All artifacts in this plugin maintain:
 
 See [ARTIFACT-ROADMAP.md](ARTIFACT-ROADMAP.md) for planned enhancements.
 
-**Completed:**
+**Recently Completed (v0.2.0):**
 - ✅ Full builder command suite (`/build-X` for all types)
+- ✅ **Complete builder Skills suite** (automatic activation for all 4 types)
+  - `command-builder` - Commands with argument handling
+  - `subagent-builder` - Subagents with task delegation
+  - `hook-builder` - Hooks with mandatory security review
+  - `artifact-migrator` - Migration and update support
 - ✅ Plugin health dashboard
 - ✅ Workflow analysis and suggestions
 - ✅ Comprehensive validation framework
@@ -753,11 +788,17 @@ See [ARTIFACT-ROADMAP.md](ARTIFACT-ROADMAP.md) for planned enhancements.
 
 ### Q: Should I use the Skill or Command version of builders?
 
-**A:** Both work! Choose based on preference:
+**A:** Both work identically! Choose based on preference:
 - **Skill** (e.g., `skill-builder`): Activates automatically when you naturally describe wanting to create something
-- **Command** (e.g., `/build-skill`): Explicit control, direct invocation
+  - Example: "Help me create a command" → `command-builder` activates
+- **Command** (e.g., `/build-command`): Explicit control, direct invocation
+  - Example: `/build-command deploy`
 
-The Command versions provide more predictable invocation, while Skills activate contextually.
+**All four artifact types have both:**
+- Skills: `skill-builder`, `command-builder`, `subagent-builder`, `hook-builder`
+- Commands: `/build-skill`, `/build-command`, `/build-subagent`, `/build-hook`
+
+Command versions provide predictable invocation, while Skills activate contextually.
 
 ### Q: How do I know which artifact type to use?
 
@@ -776,7 +817,13 @@ The Command versions provide more predictable invocation, while Skills activate 
 
 ### Q: How do I update existing artifacts?
 
-**A:**
+**A:** Use the new `artifact-migrator` Skill!
+1. Ask naturally: "My skill stopped working" or "Update my outdated command"
+2. `artifact-migrator` detects issues and suggests fixes
+3. Creates backups before making changes
+4. Validates after migration
+
+Or manually:
 1. Use `artifact-validator` to identify issues
 2. Edit the artifact files directly
 3. Run `/plugin-health-check` to verify improvements
