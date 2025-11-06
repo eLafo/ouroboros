@@ -23,6 +23,7 @@ This plugin provides **expert guidance** for:
 - **Commands** - User-triggered workflow shortcuts
 - **Subagents** - Specialized AI assistants with isolated contexts
 - **Hooks** - Event-driven automation scripts
+- **Auto-updating** - All builders verify latest specs before creating
 
 ### ✅ **Validating Quality**
 - Check YAML syntax and structure
@@ -39,6 +40,7 @@ This plugin provides **expert guidance** for:
 - Access complete specifications and best practices
 - Fetch official Claude Code documentation
 - Learn from comprehensive examples
+- **Real-time spec verification** via `claude-researcher`
 
 ### 🔍 **Analyzing Workflows**
 - Identify automation opportunities
@@ -77,6 +79,7 @@ This plugin provides **expert guidance** for:
 ```
 
 Claude will guide you through:
+0. **Documentation verification** (checks latest official specs)
 1. Planning and requirements gathering
 2. **Description crafting** (most critical - determines activation)
 3. Directory setup
@@ -299,10 +302,20 @@ User: "I want to create a Skill for PDF processing"
 
 Activates:
 - skill-builder (guides creation)
+- claude-researcher (fetches latest Skills specs)
 - claude-expert (provides specifications)
 
-Result: Comprehensive guidance with specs
+Result: Comprehensive guidance with current specs
 ```
+
+**Step 0: Documentation Verification**
+All builder commands now start by:
+1. Using `claude-researcher` to fetch latest official documentation
+2. Verifying current YAML schemas and field requirements
+3. Checking for recent specification changes
+4. Ensuring workflows use most current standards
+
+This means every artifact you create is built with up-to-date Claude Code specifications!
 
 **Complete Builder Suite:**
 All four artifact types now have automatic builder activation:
@@ -383,6 +396,8 @@ Run `/plugin-health-check` to see quality scores across all your artifacts.
 ```
 
 **Claude guides you through:**
+
+0. **Documentation verification**: Fetches latest Skills specifications from code.claude.com
 
 1. **Planning**: What operations? (extract text, merge PDFs, convert formats)
 
@@ -781,6 +796,10 @@ See [ARTIFACT-ROADMAP.md](ARTIFACT-ROADMAP.md) for planned enhancements.
 - ✅ Plugin health dashboard
 - ✅ Workflow analysis and suggestions
 - ✅ Comprehensive validation framework
+- ✅ **Auto-updating documentation verification** (Step 0 in all commands)
+  - All builder commands now fetch latest official specs from code.claude.com
+  - Ensures workflows always use current Claude Code standards
+  - Uses `claude-researcher` skill for real-time documentation checks
 
 **Future possibilities:**
 - Artifact templates library
