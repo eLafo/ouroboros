@@ -1,7 +1,7 @@
 {
   "name": "ouroboros",
   "description": "Expert assistance for creating and managing Claude Code artifacts (Skills, Commands, Subagents, Hooks) with guided workflows, validation, and security review.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Ouroboros"
   },
@@ -14,6 +14,7 @@
     "validation",
     "security",
     "workflows",
+    "workflow-analysis",
     "claude-code"
   ]
 }

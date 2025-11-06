@@ -6,19 +6,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The **Ouroboros Plugin** helps you create and manage Claude Code artifacts using Claude Code artifacts itself - a meta/recursive system symbolized by the serpent eating its own tail.
 
-**What it does:** Provides expert guidance for building Skills, Commands, Subagents, and Hooks through specialized skills that handle decision-making, creation workflows, validation, and documentation research.
+**What it does:** Provides expert guidance for building Skills, Commands, Subagents, and Hooks through specialized skills and commands that handle workflow analysis, decision-making, creation workflows, validation, and documentation research.
 
 ## Architecture
 
-### Multi-Skill System
+### Skills and Commands
 
-Five specialized skills work together:
+Five specialized skills and one command work together:
 
+**Skills (automatic activation):**
 1. **claude-expert** - Knowledge repository (specifications, workflows, decision frameworks)
 2. **artifact-advisor** - Helps choose the right artifact type
 3. **skill-builder** - Guides Skill creation workflow
 4. **artifact-validator** - Quality validation and grading
 5. **claude-researcher** - Fetches official Claude Code documentation
+
+**Commands (explicit invocation):**
+1. **/suggest-artifacts** - Analyzes workflows and suggests what artifacts to build
 
 ### Key Pattern: Progressive Disclosure
 
@@ -32,6 +36,8 @@ claude-manager-plugin/
 │   └── plugin.json           # Plugin metadata
 ├── .claude/
 │   └── settings.local.json   # Local permissions
+├── commands/
+│   └── suggest-artifacts.md  # Workflow analysis command
 └── skills/
     ├── artifact-advisor/
     ├── artifact-validator/
@@ -41,6 +47,11 @@ claude-manager-plugin/
 ```
 
 ## How to Use
+
+### Determining What to Build
+- **Start here:** Run `/suggest-artifacts` to analyze your workflow and get artifact suggestions
+- Optional: Focus on specific domain with `/suggest-artifacts <domain>` (e.g., `/suggest-artifacts testing`)
+- Command analyzes your work patterns and recommends 2-4 prioritized artifacts
 
 ### Creating Artifacts
 - Ask for help creating a Skill → `skill-builder` activates
